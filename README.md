@@ -1,8 +1,6 @@
 XboxLeaders Python API Wrapper
 ===================
 
-Version: 1.0
-
 A simple Python wrapper for the [XboxLeaders.com Xbox API](http://www.xboxleaders.com/docs/api)
 
 
