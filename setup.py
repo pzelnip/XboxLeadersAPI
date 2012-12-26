@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='XboxLeadersAPI',
@@ -8,6 +8,8 @@ setup(
     url="https://github.com/pzelnip/XboxLeadersAPI",
     description="A simple Python wrapper for the XboxLeaders.com Xbox API (http://www.xboxleaders.com/docs/api)",
     packages=['xboxleaders',],
+    test_suite='nose.collector',
+    tests_require=['Nose'],
     license='BSD',
     long_description=open('README.md').read(),
     classifiers=[
