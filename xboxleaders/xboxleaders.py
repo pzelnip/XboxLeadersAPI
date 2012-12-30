@@ -23,10 +23,16 @@ def fetch_profile(gamertag, region=DEFAULT_REGION):
     @type gamertag: str
     @param region: The region to return results from.
     @type region: str
+    
+    @raise ValueError: if gamertag is malformed (must be 1 to 15 alphanumeric 
+    characters) or there was an error returned by the API
     '''
-    params = {'gamertag' : gamertag, 'region' : region}
-    result = __fetch_from_api("profile", params)
-    return result
+    if _valid_gamertag(gamertag):
+        params = {'gamertag' : gamertag, 'region' : region}
+        result = _fetch_from_api("profile", params)
+        return result
+    else:
+        raise ValueError("%s is not a well-formed gamertag" % gamertag)
 
 
 def fetch_games(gamertag, region=DEFAULT_REGION):
@@ -38,11 +44,17 @@ def fetch_games(gamertag, region=DEFAULT_REGION):
     @type gamertag: str
     @param region: The region to return results from.
     @type region: str
+    
+    @raise ValueError: if gamertag is malformed (must be 1 to 15 alphanumeric 
+    characters) or there was an error returned by the API
     '''
-    params = {'gamertag' : gamertag, 'region' : region}
-    result = __fetch_from_api("games", params)
-    return result
-
+    if _valid_gamertag(gamertag):
+        params = {'gamertag' : gamertag, 'region' : region}
+        result = _fetch_from_api("games", params)
+        return result
+    else:
+        raise ValueError("%s is not a well-formed gamertag" % gamertag)
+    
 
 def fetch_achievements(gamertag, titleid, region=DEFAULT_REGION):
     '''
@@ -56,10 +68,16 @@ def fetch_achievements(gamertag, titleid, region=DEFAULT_REGION):
     @type titleid: int
     @param region: The region to return results from.
     @type region: str
+    
+    @raise ValueError: if gamertag is malformed (must be 1 to 15 alphanumeric 
+    characters) or there was an error returned by the API
     '''
-    params = {'gamertag' : gamertag, 'titleid' : titleid, 'region' : region}
-    result = __fetch_from_api("achievements", params)
-    return result
+    if _valid_gamertag(gamertag):
+        params = {'gamertag' : gamertag, 'titleid' : titleid, 'region' : region}
+        result = _fetch_from_api("achievements", params)
+        return result
+    else:
+        raise ValueError("%s is not a well-formed gamertag" % gamertag)
 
 
 def fetch_friends(gamertag, region=DEFAULT_REGION):
@@ -71,13 +89,19 @@ def fetch_friends(gamertag, region=DEFAULT_REGION):
     @type gamertag: str
     @param region: The region to return results from.
     @type region: str    
+    
+    @raise ValueError: if gamertag is malformed (must be 1 to 15 alphanumeric 
+    characters) or there was an error returned by the API
     '''
-    params = {'gamertag' : gamertag, 'region' : region}
-    result = __fetch_from_api("friends", params)
-    return result
+    if _valid_gamertag(gamertag):
+        params = {'gamertag' : gamertag, 'region' : region}
+        result = _fetch_from_api("friends", params)
+        return result
+    else:
+        raise ValueError("%s is not a well-formed gamertag" % gamertag)
 
 
-def __fetch_from_api(service, params, req_type = REQ_TYPE):
+def _fetch_from_api(service, params, req_type = REQ_TYPE):
     '''
     Fetch the appropriate result from the public API & return the result as a
     Python structure.
@@ -103,39 +127,11 @@ def __fetch_from_api(service, params, req_type = REQ_TYPE):
         return result['Data']
 
 
-if __name__ == "__main__":
-    print(fetch_profile("pedle zelnip")['IsCheater'])
-    try:
-        print(fetch_profile("pedle zelnipfdsa"))
-    except ValueError as e:
-        (msg, code) = e.args
-        print(msg)
-        print(code)
-    print("-------------------")
+def _valid_gamertag(gamertag):
+    '''
+    Return True if gamertag is a well-formed gamertag, and False otherwise. Note
+    that a gamertag can be well-formed, but still not exist on XBL.
+    '''
+    gamer = "Z".join(gamertag.split()) # replace spaces with Z for alnum check
+    return gamer.isalnum() and (1 <= len(gamer) <= 15) 
 
-    print(fetch_games("pedle zelnip")['GameCount'])
-    try:
-        print(fetch_games("pedle zelnipfdsa"))
-    except ValueError as e:
-        (msg, code) = e.args
-        print(msg)
-        print(code)
-    print("-------------------")
-
-    print(fetch_achievements("pedle zelnip", 1096157387)['Title'])
-    try:
-        print(fetch_achievements("pedle zelnipfdsa", 1096157387))
-    except ValueError as e:
-        (msg, code) = e.args
-        print(msg)
-        print(code)
-    print("-------------------")
-
-    print(fetch_friends("major nelson")['Friends'])
-    try:
-        print(fetch_friends("pedle zelnipfdsa"))
-    except ValueError as e:
-        (msg, code) = e.args
-        print(msg)
-        print(code)
-    print("-------------------")

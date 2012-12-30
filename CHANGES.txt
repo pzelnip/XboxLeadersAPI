@@ -1,1 +1,3 @@
+v0.2, Dec 30, 2012 -- Added unit tests, changed to setuptools from distribute
+
 v0.1, Dec 23, 2012 -- Initial release.
