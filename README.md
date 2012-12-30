@@ -15,7 +15,7 @@ Installation
 
 If you have pip, then:
 
-$ pip install git+https://github.com/pzelnip/XboxLeadersAPI.git
+    $ pip install git+https://github.com/pzelnip/XboxLeadersAPI.git
 
 Or alternatively just include the xboxleaders/xboxleaders.py file in your
 project.
