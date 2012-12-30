@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='XboxLeadersAPI',
-    version='0.1',
+    version='0.2',
     author="Adam Parkin",
     author_email="pzelnip@gmail.com",
     url="https://github.com/pzelnip/XboxLeadersAPI",
