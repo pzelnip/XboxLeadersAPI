@@ -1,3 +1,5 @@
+# Based upon the tips at: http://www.scotttorborg.com/python-packaging/index.html
+
 from setuptools import setup
 
 setup(
